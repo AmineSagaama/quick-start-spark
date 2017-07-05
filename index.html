@@ -152,9 +152,12 @@
 
         <ol style="width: 90%">
           <li>Download Apache Spark: <a href="http://spark.apache.org/downloads.html">spark.apache.org/downloads.html</a></li>
-          <li>Extract Spark:<br/><pre><code>cd ~<br>tar -xf spark-2.1.1-bin-hadoop2.7.tgz<br>cd spark-2.1.1-bin-hadoop2.7<br>ls</code></pre></li>
-          <li>Launch Spark (Python version of the Spark shell) :<br/><pre><code>bin/pyspark<br></code></pre></li>
-          <li>Launch Spark (cala version of the shell) :<br/><pre><code>bin/spark-shell<br></code></pre></li>
+          <li>Extract Spark:<br/><pre><code>cd ~
+tar -xf spark-2.1.1-bin-hadoop2.7.tgz
+cd spark-2.1.1-bin-hadoop2.7
+ls</code></pre></li>
+          <li>Launch Spark (Python version of the Spark shell) :<br/><pre><code>bin/pyspark</code></pre></li>
+          <li>Launch Spark (cala version of the shell) :<br/><pre><code>bin/spark-shell</code></pre></li>
           <li>Let’s walk through the example from the: <a href="http://spark.apache.org/docs/latest/quick-start.html">spark.apache.org/docs/latest/quick-start.html</a></li>
         </ol>
       </section>
@@ -163,15 +166,18 @@
         <h2>Scala line count</h2>
 
         <p>
-          <pre><code>scala> val lines = sc.textFile("README.md") // Create an RDD called lines<br>lines:spark.RDD[String] = MappedRDD[...]</code></pre>
+          <pre><code>scala> val lines = sc.textFile("README.md") // Create an RDD called lines
+lines:spark.RDD[String] = MappedRDD[...]</code></pre>
         </p>
 
         <p>
-          <pre><code>scala> lines.count() // Count the number of items in this RDD<br>res0: Long = 127</code></pre>
+          <pre><code>scala> lines.count() // Count the number of items in this RDD
+res0: Long = 127</code></pre>
         </p>
 
         <p>
-          <pre><code>scala> lines.first() // First item in this RDD, i.e. first line of README.md<br>res1 : String = #ApacheSpark</code></pre>
+          <pre><code>scala> lines.first() // First item in this RDD, i.e. first line of README.md
+res1 : String = #ApacheSpark</code></pre>
         </p>
       </section>
 
@@ -179,15 +185,18 @@
         <h2>Scala filtering example</h2>
 
         <p>
-          <pre><code>scala> val lines = sc.textFile("README.md") // Create an RDD called lines<br>lines : spark.RDD[String] = MappedRDD[...]</code></pre>
+          <pre><code>scala> val lines = sc.textFile("README.md") // Create an RDD called lines
+lines : spark.RDD[String] = MappedRDD[...]</code></pre>
         </p>
 
         <p>
-          <pre><code>scala> val pythonLines = lines.filter(line=>line.contains("Python"))<br>pythonLines : spark.RDD[String] = FilteredRDD[...]</code></pre>
+          <pre><code>scala> val pythonLines = lines.filter(line => line.contains("Python"))
+pythonLines : spark.RDD[String] = FilteredRDD[...]</code></pre>
         </p>
 
         <p>
-          <pre><code>scala> pythonLines.first()<br>res0 : String =## InteractivePythonShell</code></pre>
+          <pre><code>scala> pythonLines.first()
+res0 : String = ## InteractivePythonShell</code></pre>
         </p>
       </section>
 
@@ -197,7 +206,11 @@
         <h4>Initializing a SparkContext</h4>
 
         <p>
-          <pre><code>import org.apache.spark.SparkConf<br>import org.apache.spark.SparkContext<br><br>val conf = new SparkConf().setMaster("local").setAppName("My App")<br>val sc = new SparkContext(conf)</code></pre>
+          <pre><code>import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+
+val conf = new SparkConf().setMaster("local").setAppName("My App")
+val sc = new SparkContext(conf)</code></pre>
         </p>
 
         <ul>
@@ -212,12 +225,30 @@
 
         <p>
         Word count Scala application
-          <pre><code>// Create a Scala Spark Context<br>val conf = new SparkConf().setAppName("wordCount")<br>val sc = new SparkContext(conf)<br>// Load our input data.<br>val input = sc.textFile(inputFile)<br>// Split it up into words.<br>val words = input.flatMap(line=>line.split(" "))<br>// Transform into pairs and count.<br>val counts = words.map(word=>(word,1)).reduceByKey{case(x,y)=> x + y}<br>// Save the word count back out to a text file, causing evaluation<br>counts.saveAsTextFile(outputFile)</code></pre>
+          <pre><code>// Create a Scala Spark Context
+val conf = new SparkConf().setAppName("wordCount")
+val sc = new SparkContext(conf)
+// Load our input data.
+val input = sc.textFile(inputFile)
+// Split it up into words.
+val words = input.flatMap(line => line.split(" "))
+// Transform into pairs and count.
+val counts = words.map( word => (word,1)).reduceByKey{ case(x,y) => x + y}
+// Save the word count back out to a text file, causing evaluation
+counts.saveAsTextFile(outputFile)</code></pre>
         </p>
 
         sbt build file
         <p>
-          <pre><code>name:="spark-example"<br><br>version:="0.0.1"<br><br>scalaVersion:="2.11.1"<br>libraryDependencies++=Seq(<br>"org.apache.spark"%%"spark-core"%"2.11"%"provided"<br>)</code></pre>
+          <pre><code>name:="spark-example"
+
+version:="0.0.1"
+
+scalaVersion:="2.11.1"
+
+libraryDependencies ++= Seq(
+"org.apache.spark"%%"spark-core"%"2.11"%"provided"
+)</code></pre>
         </p>
         
       </section>
