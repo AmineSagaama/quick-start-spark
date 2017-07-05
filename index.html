@@ -240,11 +240,11 @@ counts.saveAsTextFile(outputFile)</code></pre>
 
         sbt build file
         <p>
-          <pre><code>name:="spark-example"
+          <pre><code>name := "spark-example"
 
-version:="0.0.1"
+version := "0.0.1"
 
-scalaVersion:="2.11.1"
+scalaVersion := "2.11.1"
 
 libraryDependencies ++= Seq(
 "org.apache.spark"%%"spark-core"%"2.11"%"provided"
